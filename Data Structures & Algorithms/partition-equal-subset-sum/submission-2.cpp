@@ -1,0 +1,22 @@
+class Solution {
+public:
+    bool canPartition(vector<int>& nums) {
+        int n=nums.size();
+        int arr_sum=0;
+        for(int i: nums){
+            arr_sum+=i;
+        }
+
+        return subset(0,0,arr_sum,nums);
+    }
+
+    bool subset(int idx,int sum,int arr_sum,vector<int>& nums){
+        if(idx>=nums.size())return false;
+        if(arr_sum==sum)return true;
+
+        bool take = subset(idx+1,sum+nums[idx],arr_sum-nums[idx],nums);
+        bool not_take = subset(idx+1,sum,arr_sum,nums);
+
+        return (take || not_take);
+    }
+};
